@@ -1,8 +1,8 @@
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('react')) :
-  typeof define === 'function' && define.amd ? define(['react'], factory) :
-  (global.nanostyled = factory(global.React));
-}(this, (function (React) { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('react')) :
+  typeof define === 'function' && define.amd ? define(['exports', 'react'], factory) :
+  (factory((global.nanostyled = {}),global.React));
+}(this, (function (exports,React) { 'use strict';
 
   React = React && React.hasOwnProperty('default') ? React['default'] : React;
 
@@ -32,6 +32,17 @@
     return Component;
   };
 
-  return nanostyled;
+  const chemical = (styleProps) => (tweaks = {}) => {
+    let styles = Object.assign({}, styleProps, tweaks);
+    return Object.keys(styles).reduce((memo, key) => {
+      memo.push(styles[key]);
+      return memo
+    }, []).join(' ');
+  };
+
+  exports.default = nanostyled;
+  exports.chemical = chemical;
+
+  Object.defineProperty(exports, '__esModule', { value: true });
 
 })));

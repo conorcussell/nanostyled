@@ -27,3 +27,13 @@ const nanostyled = (tag, styleProps) => {
 };
 
 export default nanostyled;
+
+export const chemical = styleProps => (tweaks = {}) => {
+  let styles = Object.assign({}, styleProps, tweaks);
+  return Object.keys(styles)
+    .reduce((memo, key) => {
+      memo.push(styles[key]);
+      return memo;
+    }, [])
+    .join(' ');
+};

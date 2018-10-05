@@ -1,5 +1,7 @@
 'use strict';
 
+Object.defineProperty(exports, '__esModule', { value: true });
+
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
 var React = _interopDefault(require('react'));
@@ -30,4 +32,13 @@ const nanostyled = (tag, styleProps) => {
   return Component;
 };
 
-module.exports = nanostyled;
+const chemical = (styleProps) => (tweaks = {}) => {
+  let styles = Object.assign({}, styleProps, tweaks);
+  return Object.keys(styles).reduce((memo, key) => {
+    memo.push(styles[key]);
+    return memo
+  }, []).join(' ');
+};
+
+exports.default = nanostyled;
+exports.chemical = chemical;

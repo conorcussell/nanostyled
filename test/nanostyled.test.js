@@ -1,6 +1,7 @@
 const React = require('react');
 const TestRenderer = require('react-test-renderer');
-const nanostyled = require('../dist/nanostyled.umd.js');
+const nanostyled = require('../dist/nanostyled.umd.js').default;
+const { chemical } = require('../dist/nanostyled.umd.js');
 
 const renderJSON = (Component, props) =>
   TestRenderer.create(React.createElement(Component, props)).toJSON();
@@ -58,5 +59,16 @@ describe('a button', () => {
       let res = renderJSON(Button, { tag: 'a' });
       expect(res.props.tag).toEqual(undefined);
     });
+  });
+});
+
+describe('chemicals', () => {
+  it('renders', () => {
+    let chem = chemical({
+      margin: 'ma3',
+      padding: 'ph3',
+    });
+    let res = renderJSON('button', { className: chem() });
+    expect(res.props.className).toEqual('ma3 ph3');
   });
 });
